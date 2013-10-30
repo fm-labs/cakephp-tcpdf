@@ -4,8 +4,9 @@
 
 ## Setup
 
+```
 git clone https://github.com/fm-labs/cakephp-plugin-tcpdf.git app/Plugin/Tcpdf
-
+```
 
 In app/Config/bootstrap.php:
 
