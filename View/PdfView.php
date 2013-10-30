@@ -16,13 +16,14 @@ class PdfView extends View {
 	);
 	
 	public function __construct(Controller $controller = null) {
-
-		$this->layoutPath = 'pdf';
-		//$this->subDir = 'pdf';
 		
 		parent::__construct($controller);
 		
 		$this->response->type('pdf');
+		
+		if ($this->layoutPath === null) {
+			$this->layoutPath = 'pdf';
+		}
 		
 		if ($this->request->query('download')) {
 			$this->_config['download'] = true;
