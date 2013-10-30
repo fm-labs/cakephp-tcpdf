@@ -1,0 +1,4 @@
+/Vendor/tcpdf/cache/*.txt
+/Vendor/tcpdf/examples/
+/Vendor/tcpdf/fonts/
+/Vendor/tcpdf/images/
