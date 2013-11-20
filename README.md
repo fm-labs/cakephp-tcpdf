@@ -1,6 +1,7 @@
 # CakePHP TCPDF Plugin
-### A CakePHP wrapper for the excellent TCPDF library
+### A CakePHP wrapper for TCPDF http://www.tcpdf.org
 
+Uses tcpdf v5.9
 
 ## Setup
 
