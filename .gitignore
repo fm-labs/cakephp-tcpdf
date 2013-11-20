@@ -1,6 +1,8 @@
+/.buildpath
+/.project
+/.idea/
+/.settings/
+/Config/tcpdf_config.bak.php
 /Vendor/tcpdf/cache/
 /Vendor/tcpdf/examples/
 /Vendor/tcpdf/images/
-/.settings
-/.buildpath
-/.project
