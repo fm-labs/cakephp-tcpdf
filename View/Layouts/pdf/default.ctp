@@ -6,5 +6,8 @@
 	}
 	</style>
 </head>
-<body>THIS IS THE DEFAULT PDFLAYOUT<?php echo $this->fetch('content'); ?></body>
+<body>
+	THIS IS THE DEFAULT PDFLAYOUT
+	<?php echo $this->fetch('content'); ?>
+</body>
 </html>

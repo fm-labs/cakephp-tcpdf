@@ -6,7 +6,7 @@ App::import('Vendor','Tcpdf.tcpdf/tcpdf');
 /**
  * CakeTcpdf - A CakePHP wrapper for TCPDF
  * 
- * @see http://[link to tcpdf project website] //TODO
+ * @see http://www.tcpdf.org
  */
 class CakeTcpdf extends TCPDF {
 
