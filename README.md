@@ -6,7 +6,7 @@ Uses tcpdf v5.9
 ## Setup
 
 ```
-git clone https://github.com/fm-labs/cakephp-plugin-tcpdf.git app/Plugin/Tcpdf
+git clone https://github.com/fm-labs/cakephp-tcpdf.git app/Plugin/Tcpdf
 ```
 
 In app/Config/bootstrap.php:
