@@ -64,10 +64,15 @@ class PdfView extends View
     {
         if (!$this->_engine) {
             $className = $this->get('pdfEngine', 'Tcpdf\Lib\CakeTcpdf');
+
+            if (!class_exists($className)) {
+                throw new \RuntimeException("Class $className does not exist");
+            }
+
             $engine = new $className();
 
             if (!is_a($engine, 'Tcpdf\Lib\CakeTcpdf')) {
-                throw new \Exception('The given pdf engine does not extend CakeTcpdf');
+                throw new \RuntimeException('The given pdf engine does not extend CakeTcpdf');
             }
             $this->_engine = $engine;
         }
@@ -85,7 +90,7 @@ class PdfView extends View
         $this->engine()->SetSubject($pdfParams['subject']);
         $this->engine()->SetKeywords($pdfParams['keywords']);
 
-        Configure::write('debug', false);
+        //Configure::write('debug', false);
         $this->engine()->AddPage();
         $this->engine()->writeHTML($content, true, 0, true, 0);
 
@@ -95,18 +100,23 @@ class PdfView extends View
 
         switch (strtoupper($output)) {
             case "D":
+            case "DOWNLOAD":
                 // force download
                 return $this->engine()->Output($filename, 'D');
 
             case "I":
+            case "BROWSER":
                 // send to browser
                 return $this->engine()->Output('', 'I');
 
             case "F":
+            case "FILE":
                 // save to disk
-                return $this->engine()->Output(TMP . $filename, 'F');
+                $this->engine()->Output(TMP . $filename, 'F');
+                return $content;
 
             case "FD":
+            case "FILEDOWNLOAD":
                 // save to disk and force download
                 return $this->engine()->Output(TMP . $filename, 'FD');
 
