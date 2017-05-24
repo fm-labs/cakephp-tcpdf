@@ -94,8 +94,10 @@ class PdfView extends View
         $this->engine()->AddPage();
         $this->engine()->writeHTML($content, true, 0, true, 0);
 
+        $filedir = (isset($pdfParams['filedir'])) ? $pdfParams['filedir'] : TMP;
 
         $filename = (isset($pdfParams['filename'])) ? $pdfParams['filename'] : 'document.pdf';
+        $filename = (!preg_match('/\.pdf$/i', $filename)) ? $filename . '.pdf' : $filename;
         $output = (isset($pdfParams['output'])) ? $pdfParams['output'] : 'S';
 
         switch (strtoupper($output)) {
@@ -112,13 +114,13 @@ class PdfView extends View
             case "F":
             case "FILE":
                 // save to disk
-                $this->engine()->Output(TMP . $filename, 'F');
+                $this->engine()->Output($filedir . $filename, 'F');
                 return $content;
 
             case "FD":
             case "FILEDOWNLOAD":
                 // save to disk and force download
-                return $this->engine()->Output(TMP . $filename, 'FD');
+                return $this->engine()->Output($filedir . $filename, 'FD');
 
             case "S":
             default:
