@@ -46,7 +46,6 @@ class CakeTcpdf extends TCPDF
         $this->initialize();
     }
 
-
     /**
      * Initialize.
      * Called after constructing the TCPDF instance.
@@ -79,7 +78,6 @@ class CakeTcpdf extends TCPDF
 
         $this->SetTextColor(0, 0, 0);
         $this->SetFont('helvetica', '', 11);
-
     }
 
     /**
@@ -93,7 +91,6 @@ class CakeTcpdf extends TCPDF
         parent::Header();
     }
 
-
     /**
      * Overwrite this method in your subclass to specify a custom footer
      * which will be added at the bottom of every page
@@ -104,5 +101,4 @@ class CakeTcpdf extends TCPDF
     {
         parent::Footer();
     }
-
 }

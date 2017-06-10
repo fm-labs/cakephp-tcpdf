@@ -2,7 +2,6 @@
 
 namespace Tcpdf\View;
 
-
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
 use Cake\Network\Request;
@@ -15,11 +14,11 @@ class PdfView extends View
     /**
      * @var array Default configuration
      */
-    protected $_config = array(
+    protected $_config = [
         'download' => false,
         'filename' => '',
         'raw' => true,
-    );
+    ];
 
     /**
      * @var CakeTcpdf Rendering engine
@@ -76,6 +75,7 @@ class PdfView extends View
             }
             $this->_engine = $engine;
         }
+
         return $this->_engine;
     }
 
@@ -115,6 +115,7 @@ class PdfView extends View
             case "FILE":
                 // save to disk
                 $this->engine()->Output($filedir . $filename, 'F');
+
                 return $content;
 
             case "FD":
@@ -127,9 +128,8 @@ class PdfView extends View
                 // send as application/pdf response
                 $this->response->type('pdf');
                 $this->response->header('Content-Disposition: inline; filename="' . $filename . '"');
+
                 return $this->engine()->Output('', 'S');
         }
-
     }
-
 }

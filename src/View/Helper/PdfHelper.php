@@ -25,7 +25,7 @@ class PdfHelper extends Helper
      * @see View::__constructor()
      * @throws \Exception
      */
-    public function __construct(PdfView $View, $settings = array())
+    public function __construct(PdfView $View, $settings = [])
     {
         parent::__construct($View, $settings);
     }
@@ -45,7 +45,7 @@ class PdfHelper extends Helper
      */
     public function __call($method, $params)
     {
-        return call_user_func_array(array($this->engine(), $method), $params);
+        return call_user_func_array([$this->engine(), $method], $params);
     }
 
     /**
@@ -94,5 +94,4 @@ class PdfHelper extends Helper
         $this->flush();
         $this->engine()->AddPage();
     }
-
 }
