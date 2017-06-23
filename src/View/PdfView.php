@@ -9,6 +9,11 @@ use Cake\Network\Response;
 use Cake\View\View;
 use Tcpdf\Lib\CakeTcpdf;
 
+/**
+ * Class PdfView
+ *
+ * @package Tcpdf\View
+ */
 class PdfView extends View
 {
     /**
@@ -131,5 +136,17 @@ class PdfView extends View
 
                 return $this->engine()->Output('', 'S');
         }
+    }
+
+    /**
+     * Pass method calls to pdf engine
+     *
+     * @param $method
+     * @param $args
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        return call_user_func_array([$this->engine(), $method], $args);
     }
 }
