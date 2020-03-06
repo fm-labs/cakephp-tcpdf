@@ -4,8 +4,8 @@ namespace Tcpdf\View;
 
 use Cake\Core\Configure;
 use Cake\Event\EventManager;
-use Cake\Network\Request;
-use Cake\Network\Response;
+use Cake\Http\ServerRequest as Request;
+use Cake\Http\Response;
 use Cake\View\View;
 use Tcpdf\Lib\CakeTcpdf;
 
