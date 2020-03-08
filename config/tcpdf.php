@@ -202,7 +202,7 @@ defined('K_TITLE_MAGNIFICATION') or define('K_TITLE_MAGNIFICATION', 1.3);
 /**
  * Reduction factor for small font.
  */
-defined('K_SMALL_RATIO') or define('K_SMALL_RATIO', 2/3);
+defined('K_SMALL_RATIO') or define('K_SMALL_RATIO', 2 / 3);
 
 /**
  * Set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language.
