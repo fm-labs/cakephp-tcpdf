@@ -131,8 +131,9 @@ class PdfView extends View
             case "S":
             default:
                 // send as application/pdf response
-                $this->response->type('pdf');
-                $this->response->header('Content-Disposition: inline; filename="' . $filename . '"');
+                $this->response = $this->response
+                    ->withType('pdf')
+                    ->withHeader('Content-Disposition', 'inline; filename="' . $filename . '"');
 
                 return $this->engine()->Output('', 'S');
         }
