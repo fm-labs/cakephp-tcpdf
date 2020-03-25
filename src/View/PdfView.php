@@ -84,7 +84,7 @@ class PdfView extends View
         return $this->_engine;
     }
 
-    public function render($view = null, $layout = null)
+    public function render(?string $template = null, $layout = null): string
     {
         // !IMPORTANT: Render view before initializing CakeTcpdf, because TCPDF sets the encoding to ASCII
         $content = parent::render($view, $layout);
