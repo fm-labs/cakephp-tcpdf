@@ -1,11 +1,11 @@
 {
-    "name": "fm-labs/cakephp3-tcpdf",
+    "name": "fm-labs/cakephp-tcpdf",
     "description": "Tcpdf plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
         "php": ">=7.2",
         "cakephp/cakephp": "^4.0",
-        "tecnickcom/TCPDF": "6.2.*"
+        "tecnickcom/tcpdf": "6.2.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
