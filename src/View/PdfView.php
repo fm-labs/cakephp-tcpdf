@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace Tcpdf\View;
 
-use Cake\Core\Configure;
 use Cake\Event\EventManager;
-use Cake\Http\ServerRequest as Request;
 use Cake\Http\Response;
+use Cake\Http\ServerRequest as Request;
 use Cake\View\View;
-use Tcpdf\Lib\CakeTcpdf;
 
 /**
  * Class PdfView
@@ -26,14 +25,17 @@ class PdfView extends View
     ];
 
     /**
-     * @var CakeTcpdf Rendering engine
+     * @var \Tcpdf\Lib\CakeTcpdf Rendering engine
      */
     protected $_engine;
 
+    /**
+     * @inheritDoc
+     */
     public function __construct(
-        Request $request = null,
-        Response $response = null,
-        EventManager $eventManager = null,
+        ?Request $request = null,
+        ?Response $response = null,
+        ?EventManager $eventManager = null,
         array $viewOptions = []
     ) {
         parent::__construct($request, $response, $eventManager, $viewOptions);
@@ -61,7 +63,7 @@ class PdfView extends View
     }
 
     /**
-     * @return CakeTcpdf
+     * @return \Tcpdf\Lib\CakeTcpdf
      * @throws \Exception
      */
     public function engine()
@@ -84,10 +86,16 @@ class PdfView extends View
         return $this->_engine;
     }
 
+    /**
+     * @param string|null $template Template name
+     * @param string|false|null $layout Layout to use. False to disable.
+     * @return string
+     * @throws \Exception
+     */
     public function render(?string $template = null, $layout = null): string
     {
         // !IMPORTANT: Render view before initializing CakeTcpdf, because TCPDF sets the encoding to ASCII
-        $content = parent::render($view, $layout);
+        $content = parent::render($template, $layout);
 
         $pdfParams = $this->get('pdf');
 
@@ -99,36 +107,36 @@ class PdfView extends View
         $this->engine()->AddPage();
         $this->engine()->writeHTML($content, true, 0, true, 0);
 
-        $filedir = (isset($pdfParams['filedir'])) ? $pdfParams['filedir'] : TMP;
+        $filedir = $pdfParams['filedir'] ?? TMP;
 
-        $filename = (isset($pdfParams['filename'])) ? $pdfParams['filename'] : 'document.pdf';
-        $filename = (!preg_match('/\.pdf$/i', $filename)) ? $filename . '.pdf' : $filename;
-        $output = (isset($pdfParams['output'])) ? $pdfParams['output'] : 'S';
+        $filename = $pdfParams['filename'] ?? 'document.pdf';
+        $filename = !preg_match('/\.pdf$/i', $filename) ? $filename . '.pdf' : $filename;
+        $output = $pdfParams['output'] ?? 'S';
 
         switch (strtoupper($output)) {
-            case "D":
-            case "DOWNLOAD":
+            case 'D':
+            case 'DOWNLOAD':
                 // force download
                 return $this->engine()->Output($filename, 'D');
 
-            case "I":
-            case "BROWSER":
+            case 'I':
+            case 'BROWSER':
                 // send to browser
                 return $this->engine()->Output('', 'I');
 
-            case "F":
-            case "FILE":
+            case 'F':
+            case 'FILE':
                 // save to disk
                 $this->engine()->Output($filedir . $filename, 'F');
 
                 return $content;
 
-            case "FD":
-            case "FILEDOWNLOAD":
+            case 'FD':
+            case 'FILEDOWNLOAD':
                 // save to disk and force download
                 return $this->engine()->Output($filedir . $filename, 'FD');
 
-            case "S":
+            case 'S':
             default:
                 // send as application/pdf response
                 $this->response = $this->response
@@ -142,11 +150,12 @@ class PdfView extends View
     /**
      * Pass method calls to pdf engine
      *
-     * @param $method
-     * @param $args
+     * @param string $method Method name
+     * @param mixed $args Method args
      * @return mixed
+     * @throws \Exception
      */
-    public function __call($method, $args)
+    public function __call(string $method, $args)
     {
         return call_user_func_array([$this->engine(), $method], $args);
     }

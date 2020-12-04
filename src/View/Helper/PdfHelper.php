@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace Tcpdf\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
-use Tcpdf\Lib\CakeTcpdf;
 use Tcpdf\View\PdfView;
 
 /**
@@ -17,13 +17,14 @@ class PdfHelper extends Helper
     protected $_bufferBlock = 'pdf';
 
     /**
-     * @var PdfView
+     * @var \Tcpdf\View\PdfView
      */
     protected $_View;
 
     /**
+     * @param \Tcpdf\View\PdfView $View
+     * @param array $settings
      * @see View::__constructor()
-     * @throws \Exception
      */
     public function __construct(PdfView $View, $settings = [])
     {
@@ -33,7 +34,7 @@ class PdfHelper extends Helper
     /**
      * Direct access to pdf engine
      *
-     * @return CakeTcpdf
+     * @return \Tcpdf\Lib\CakeTcpdf
      */
     public function engine()
     {
@@ -42,32 +43,46 @@ class PdfHelper extends Helper
 
     /**
      * Pass all method calls to pdf engine
+     *
+     * @param string $method
+     * @param mixed $params
+     * @return false|mixed
      */
-    public function __call($method, $params)
+    public function __call(string $method, $params)
     {
         return call_user_func_array([$this->engine(), $method], $params);
     }
 
     /**
      * Start capturing html
+     *
+     * @return $this
      */
     public function start()
     {
         $this->_View->start($this->_bufferBlock);
+
+        return $this;
     }
 
     /**
      * Stop capturing html
+     *
+     * @return $this
      */
     public function end()
     {
         if ($this->_View->Blocks->active() === $this->_bufferBlock) {
             $this->_View->end();
         }
+
+        return $this;
     }
 
     /**
      * Flush captured html buffer to pdf as HTML block
+     *
+     * @return $this
      */
     public function flush()
     {
@@ -83,15 +98,21 @@ class PdfHelper extends Helper
 
         // reset buffer
         $this->_View->assign($this->_bufferBlock, '');
+
+        return $this;
     }
 
     /**
      * Add new page
      * Flushes buffered contents, if any
+     *
+     * @return $this
      */
     public function addPage()
     {
         $this->flush();
         $this->engine()->AddPage();
+
+        return $this;
     }
 }

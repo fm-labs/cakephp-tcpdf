@@ -1,7 +1,6 @@
 <?php
 namespace Tcpdf\Lib;
 
-use Cake\Core\App;
 use TCPDF;
 
 /**
@@ -16,6 +15,9 @@ use TCPDF;
  */
 class CakeTcpdf extends TCPDF
 {
+    /**
+     * @var bool
+     */
     public $rendered = false;
 
     /**
@@ -56,7 +58,7 @@ class CakeTcpdf extends TCPDF
         // set document information
         $this->SetTitle('Untitled Document');
         $this->SetSubject('Untitled Document');
-        $this->SetKeywords('CakeTcpdf, CakePHP, TCPDF, Pdf');
+        $this->SetKeywords('');
 
         // set header and footer fonts
         $this->setHeaderFont([PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN]);
