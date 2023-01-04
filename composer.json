@@ -5,7 +5,7 @@
     "require": {
         "php": ">=7.2",
         "cakephp/cakephp": "^4.0",
-        "tecnickcom/tcpdf": "6.2.*"
+        "tecnickcom/tcpdf": "^6.2"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
