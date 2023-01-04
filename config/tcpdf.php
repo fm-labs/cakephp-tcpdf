@@ -63,25 +63,25 @@ defined('K_PATH_CACHE') || define('K_PATH_CACHE', TMP);
  * Document creator.
  */
 defined('PDF_CREATOR')
-    || define('PDF_CREATOR', Configure::read('Pdf.creator', 'CakePHP TCPDF'));
+    || define('PDF_CREATOR', Configure::read('Tcpdf.creator', 'CakePHP TCPDF'));
 
 /**
  * Document author.
  */
 defined('PDF_AUTHOR')
-    || define('PDF_AUTHOR', Configure::read('Pdf.author', 'CakePHP TCPDF'));
+    || define('PDF_AUTHOR', Configure::read('Tcpdf.author', 'CakePHP TCPDF'));
 
 /**
  * Header title.
  */
 defined('PDF_HEADER_TITLE')
-    || define('PDF_HEADER_TITLE', Configure::read('Pdf.headerTitle', 'CakePHP TCPDF Example'));
+    || define('PDF_HEADER_TITLE', Configure::read('Tcpdf.headerTitle', 'CakePHP TCPDF Example'));
 
 /**
  * Header description string.
  */
 defined('PDF_HEADER_STRING')
-    || define('PDF_HEADER_STRING', Configure::read('Pdf.headerString', 'by CakePHP TCPDF Plugin'));
+    || define('PDF_HEADER_STRING', Configure::read('Tcpdf.headerString', 'by CakePHP TCPDF Plugin'));
 
 /**
  * Installation path (/var/www/tcpdf/).
