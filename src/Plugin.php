@@ -20,5 +20,8 @@ class Plugin extends BasePlugin
     public function bootstrap(PluginApplicationInterface $app): void
     {
         Configure::load('Tcpdf.tcpdf');
+        if (\Cake\Core\Plugin::isLoaded('Settings')) {
+            Configure::load('Tcpdf', 'settings');
+        }
     }
 }
