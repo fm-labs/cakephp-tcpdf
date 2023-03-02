@@ -4,7 +4,7 @@ return [
         'Tcpdf' => [
             'groups' => [
                 'Pdf.Default' => [
-                    'label' => __('Default Pdf settings'),
+                    'label' => __d('tcpdf', 'Default Pdf settings'),
                 ],
             ],
 
