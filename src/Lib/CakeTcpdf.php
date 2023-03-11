@@ -1,6 +1,7 @@
 <?php
 namespace Tcpdf\Lib;
 
+use Cake\Core\Configure;
 use TCPDF;
 
 /**
@@ -56,6 +57,8 @@ class CakeTcpdf extends TCPDF
     public function initialize()
     {
         // set document information
+        $this->setCreator(Configure::read('Tcpdf.creator', 'CakeTcpdf'));
+        $this->setAuthor(Configure::read('Tcpdf.author', 'CakeTcpdf'));
         $this->SetTitle('Untitled Document');
         $this->SetSubject('Untitled Document');
         $this->SetKeywords('');

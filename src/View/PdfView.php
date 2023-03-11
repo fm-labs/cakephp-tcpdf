@@ -7,6 +7,7 @@ use Cake\Event\EventManager;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest as Request;
 use Cake\View\View;
+use Tcpdf\Lib\CakeTcpdf;
 
 /**
  * Class PdfView
@@ -77,7 +78,7 @@ class PdfView extends View
 
             $engine = new $className();
 
-            if (!is_a($engine, 'Tcpdf\Lib\CakeTcpdf')) {
+            if (!is_a($engine, CakeTcpdf::class)) {
                 throw new \RuntimeException('The given pdf engine does not extend CakeTcpdf');
             }
             $this->_engine = $engine;

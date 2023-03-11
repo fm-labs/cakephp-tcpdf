@@ -9,21 +9,25 @@ return [
             ],
 
             'schema' => [
-                'Pdf.creator' => [
+                'Tcpdf.creator' => [
                     'group' => 'Pdf.Default',
                     'type' => 'string',
+                    'default' => 'CakeTcpdf',
                 ],
-                'Pdf.author' => [
+                'Tcpdf.author' => [
                     'group' => 'Pdf.Default',
                     'type' => 'string',
+                    'default' => 'CakeTcpdf',
                 ],
-                'Pdf.headerTitle' => [
+                'Tcpdf.headerTitle' => [
                     'group' => 'Pdf.Default',
                     'type' => 'string',
+                    'default' => '',
                 ],
-                'Pdf.headerString' => [
+                'Tcpdf.headerString' => [
                     'group' => 'Pdf.Default',
                     'type' => 'string',
+                    'default' => ''
                 ],
             ],
         ],
