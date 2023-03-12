@@ -138,13 +138,15 @@ class PdfView extends View
                 return $this->engine()->Output($filedir . $filename, 'FD');
 
             case 'S':
+            case 'STRING':
             default:
                 // send as application/pdf response
+                $buffer = $this->engine()->Output('', 'S');
                 $this->response = $this->response
                     ->withType('pdf')
-                    ->withHeader('Content-Disposition', 'inline; filename="' . $filename . '"');
-
-                return $this->engine()->Output('', 'S');
+                    ->withHeader('Content-Disposition', 'inline; filename="' . $filename . '"')
+                    ->withStringBody($buffer);
+                return $buffer;
         }
     }
 
