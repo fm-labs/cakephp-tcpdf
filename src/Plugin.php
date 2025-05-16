@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Tcpdf;
 
 use Cake\Core\BasePlugin;
@@ -7,15 +9,9 @@ use Cake\Core\PluginApplicationInterface;
 
 class Plugin extends BasePlugin
 {
-    /**
-     * @var bool
-     */
-    public $routesEnabled = false;
+    protected bool $routesEnabled = false;
 
-    /**
-     * @var bool
-     */
-    public $bootstrapEnabled = true;
+    protected bool $bootstrapEnabled = true;
 
     public function bootstrap(PluginApplicationInterface $app): void
     {
