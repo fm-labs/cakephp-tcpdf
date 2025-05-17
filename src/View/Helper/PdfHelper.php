@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Tcpdf\View\Helper;
 
 use Cake\View\Helper;
+use Cake\View\View;
+use Tcpdf\Lib\CakeTcpdf;
 use Tcpdf\View\PdfView;
 
 /**
@@ -14,19 +16,19 @@ class PdfHelper extends Helper
     /**
      * @var string View block name for buffering html
      */
-    protected $_bufferBlock = 'pdf';
+    protected string $_bufferBlock = 'pdf';
 
     /**
      * @var \Tcpdf\View\PdfView
      */
-    protected $_View;
+    protected View $_View;
 
     /**
      * @param \Tcpdf\View\PdfView $View
      * @param array $settings
      * @see View::__constructor()
      */
-    public function __construct(PdfView $View, $settings = [])
+    public function __construct(PdfView $View, array $settings = [])
     {
         parent::__construct($View, $settings);
     }
@@ -36,7 +38,7 @@ class PdfHelper extends Helper
      *
      * @return \Tcpdf\Lib\CakeTcpdf
      */
-    public function engine()
+    public function engine(): CakeTcpdf
     {
         return $this->_View->engine();
     }
@@ -46,9 +48,9 @@ class PdfHelper extends Helper
      *
      * @param string $method
      * @param mixed $params
-     * @return false|mixed
+     * @return mixed|false
      */
-    public function __call(string $method, $params)
+    public function __call(string $method, mixed $params): mixed
     {
         return call_user_func_array([$this->engine(), $method], $params);
     }

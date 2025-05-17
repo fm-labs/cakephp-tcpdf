@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Tcpdf\Lib;
 
 use Cake\Core\Configure;
@@ -11,7 +13,6 @@ use TCPDF;
  * so if you are using the mbstring module functions with TCPDF you need to correctly
  * set/unset the mb_internal_encoding when needed.
  *
- *
  * @see http://www.tcpdf.org
  */
 class CakeTcpdf extends TCPDF
@@ -19,11 +20,9 @@ class CakeTcpdf extends TCPDF
     /**
      * @var bool
      */
-    public $rendered = false;
+    public bool $rendered = false;
 
     /**
-     *
-     *
      * @param $orientation (string) page orientation. Possible values are (case insensitive):<ul><li>P or Portrait (default)</li><li>L or Landscape</li><li>'' (empty string) for automatic orientation</li></ul>
      * @param $unit (string) User measure unit. Possible values are:<ul><li>pt: point</li><li>mm: millimeter (default)</li><li>cm: centimeter</li><li>in: inch</li></ul><br />A point equals 1/72 of inch, that is to say about 0.35 mm (an inch being 2.54 cm). This is a very common unit in typography; font sizes are expressed in that unit.
      * @param $format (mixed) The format used for pages. It can be either: one of the string values specified at getPageSizeFromFormat() or an array of parameters specified at setPageFormat().
@@ -42,7 +41,7 @@ class CakeTcpdf extends TCPDF
         $unicode = true,
         $encoding = 'UTF-8',
         $diskcache = false,
-        $pdfa = false
+        $pdfa = false,
     ) {
         parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
 
@@ -54,7 +53,7 @@ class CakeTcpdf extends TCPDF
      * Called after constructing the TCPDF instance.
      * Override in subclasses
      */
-    public function initialize()
+    public function initialize(): void
     {
         // set document information
         $this->setCreator(Configure::read('Tcpdf.creator', 'CakeTcpdf'));
@@ -91,7 +90,7 @@ class CakeTcpdf extends TCPDF
      *
      * @see TCPDF::Header()
      */
-    public function Header()
+    public function Header(): void
     {
         parent::Header();
     }
@@ -102,7 +101,7 @@ class CakeTcpdf extends TCPDF
      *
      * @see TCPDF::Header()
      */
-    public function Footer()
+    public function Footer(): void
     {
         parent::Footer();
     }

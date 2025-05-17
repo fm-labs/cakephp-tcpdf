@@ -7,6 +7,7 @@ use Cake\Event\EventManager;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest as Request;
 use Cake\View\View;
+use RuntimeException;
 use Tcpdf\Lib\CakeTcpdf;
 
 /**
@@ -19,7 +20,7 @@ class PdfView extends View
     /**
      * @var array Default configuration
      */
-    protected $_config = [
+    protected array $_config = [
         'download' => false,
         'filename' => '',
         'raw' => true,
@@ -28,7 +29,7 @@ class PdfView extends View
     /**
      * @var \Tcpdf\Lib\CakeTcpdf Rendering engine
      */
-    protected $_engine;
+    protected ?CakeTcpdf $_engine = null;
 
     /**
      * @inheritDoc
@@ -37,7 +38,7 @@ class PdfView extends View
         ?Request $request = null,
         ?Response $response = null,
         ?EventManager $eventManager = null,
-        array $viewOptions = []
+        array $viewOptions = [],
     ) {
         parent::__construct($request, $response, $eventManager, $viewOptions);
 
@@ -67,19 +68,19 @@ class PdfView extends View
      * @return \Tcpdf\Lib\CakeTcpdf
      * @throws \Exception
      */
-    public function engine()
+    public function engine(): CakeTcpdf
     {
         if (!$this->_engine) {
             $className = $this->get('pdfEngine', 'Tcpdf\Lib\CakeTcpdf');
 
             if (!class_exists($className)) {
-                throw new \RuntimeException("Class $className does not exist");
+                throw new RuntimeException("Class $className does not exist");
             }
 
             $engine = new $className();
 
             if (!is_a($engine, CakeTcpdf::class)) {
-                throw new \RuntimeException('The given pdf engine does not extend CakeTcpdf');
+                throw new RuntimeException('The given pdf engine does not extend CakeTcpdf');
             }
             $this->_engine = $engine;
         }
@@ -93,7 +94,7 @@ class PdfView extends View
      * @return string
      * @throws \Exception
      */
-    public function render(?string $template = null, $layout = null): string
+    public function render(?string $template = null, string|false|null $layout = null): string
     {
         // !IMPORTANT: Render view before initializing CakeTcpdf, because TCPDF sets the encoding to ASCII
         $content = parent::render($template, $layout);
@@ -146,6 +147,7 @@ class PdfView extends View
                     ->withType('pdf')
                     ->withHeader('Content-Disposition', 'inline; filename="' . $filename . '"')
                     ->withStringBody($buffer);
+
                 return $buffer;
         }
     }
@@ -158,7 +160,7 @@ class PdfView extends View
      * @return mixed
      * @throws \Exception
      */
-    public function __call(string $method, $args)
+    public function __call(string $method, mixed $args): mixed
     {
         return call_user_func_array([$this->engine(), $method], $args);
     }

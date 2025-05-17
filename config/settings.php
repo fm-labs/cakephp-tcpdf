@@ -27,7 +27,7 @@ return [
                 'Tcpdf.headerString' => [
                     'group' => 'Pdf.Default',
                     'type' => 'string',
-                    'default' => ''
+                    'default' => '',
                 ],
             ],
         ],
